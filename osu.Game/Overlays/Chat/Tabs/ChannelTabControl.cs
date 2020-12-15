@@ -100,8 +100,8 @@ namespace osu.Game.Overlays.Chat.Tabs
             if (SelectedTab == null)
                 SelectTab(selectorTab);
 
-            if (SelectedTab is PrivateChannelTabItem)
-                ((PrivateChannelTabItem)SelectedTab)?.TransitionToActive();
+            if (SelectedTab is PrivateChannelTabItem PMSelectedTab)
+                PMSelectedTab.TransitionToActive();
         }
 
         protected override void SelectTab(TabItem<Channel> tab)
