@@ -10,7 +10,6 @@ using System;
 using System.Linq;
 using osu.Framework.Bindables;
 using osu.Framework.Graphics.Containers;
-using osu.Framework.Logging;
 
 namespace osu.Game.Overlays.Chat.Tabs
 {
@@ -98,11 +97,11 @@ namespace osu.Game.Overlays.Chat.Tabs
         {
             RemoveItem(channel);
 
-            if (SelectedTab is PrivateChannelTabItem)
-                ((PrivateChannelTabItem)SelectedTab).TransitionToActive();
-
             if (SelectedTab == null)
                 SelectTab(selectorTab);
+
+            if (SelectedTab is PrivateChannelTabItem)
+                ((PrivateChannelTabItem)SelectedTab).TransitionToActive();
         }
 
         protected override void SelectTab(TabItem<Channel> tab)
