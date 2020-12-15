@@ -28,8 +28,8 @@ namespace osu.Game.Overlays.Chat.Tabs
 
         public override bool IsRemovable => !Pinned;
 
-        protected const float close_button_padding = 20;
-        public const float MIN_TAB_SIZE = ChatOverlay.TAB_AREA_HEIGHT + TabCloseButton.BUTTON_SIZE + close_button_padding;
+        protected const float CLOSE_BUTTON_PADDING = 20;
+        public const float MIN_TAB_SIZE = ChatOverlay.TAB_AREA_HEIGHT + TabCloseButton.BUTTON_SIZE + CLOSE_BUTTON_PADDING;
 
         protected readonly SpriteText Text;
         protected readonly ClickableContainer CloseButton;
@@ -105,7 +105,7 @@ namespace osu.Game.Overlays.Chat.Tabs
                         CloseButton = new TabCloseButton
                         {
                             Alpha = 0,
-                            Margin = new MarginPadding { Right = close_button_padding },
+                            Margin = new MarginPadding { Right = CLOSE_BUTTON_PADDING },
                             Origin = Anchor.CentreRight,
                             Anchor = Anchor.CentreRight,
                             Action = delegate
@@ -127,11 +127,6 @@ namespace osu.Game.Overlays.Chat.Tabs
         protected virtual bool ShowCloseOnHover => true;
 
         protected virtual bool IsBoldWhenActive => true;
-
-        public void HideCloseButton()
-        {
-            CloseButton.FadeOut(200);
-        }
 
         protected override bool OnHover(HoverEvent e)
         {

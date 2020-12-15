@@ -70,20 +70,28 @@ namespace osu.Game.Overlays.Chat.Tabs
 
         protected const float TAB_ACTIVE_WIDTH = 200;
 
+        public void TransitionToActive()
+        {
+            this.ResizeWidthTo(TAB_ACTIVE_WIDTH, TRANSITION_LENGTH, Easing.OutQuint);
+            CloseButton.FadeIn(TRANSITION_LENGTH, Easing.OutQuint);
+        }
+
+        public void TransitionToInactive()
+        {
+            this.ResizeWidthTo(ChatOverlay.TAB_AREA_HEIGHT + 10, TRANSITION_LENGTH, Easing.OutQuint);
+            CloseButton.FadeOut(TRANSITION_LENGTH, Easing.OutQuint);
+        }
+
         protected override void FadeActive()
         {
             base.FadeActive();
-
-            this.ResizeWidthTo(TAB_ACTIVE_WIDTH, TRANSITION_LENGTH, Easing.OutQuint);
-            CloseButton.FadeIn(TRANSITION_LENGTH, Easing.OutQuint);
+            TransitionToActive();
         }
 
         protected override void FadeInactive()
         {
             base.FadeInactive();
-
-            this.ResizeWidthTo(ChatOverlay.TAB_AREA_HEIGHT + 10, TRANSITION_LENGTH, Easing.OutQuint);
-            CloseButton.FadeOut(TRANSITION_LENGTH, Easing.OutQuint);
+            TransitionToInactive();
         }
 
         [BackgroundDependencyLoader]
