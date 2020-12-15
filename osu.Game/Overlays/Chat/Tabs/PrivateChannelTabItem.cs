@@ -68,11 +68,13 @@ namespace osu.Game.Overlays.Chat.Tabs
 
         protected override bool ShowCloseOnHover => false;
 
+        protected const float TAB_ACTIVE_WIDTH = 200;
+
         protected override void FadeActive()
         {
             base.FadeActive();
 
-            this.ResizeWidthTo(200, TRANSITION_LENGTH, Easing.OutQuint);
+            this.ResizeWidthTo(TAB_ACTIVE_WIDTH, TRANSITION_LENGTH, Easing.OutQuint);
             CloseButton.FadeIn(TRANSITION_LENGTH, Easing.OutQuint);
         }
 

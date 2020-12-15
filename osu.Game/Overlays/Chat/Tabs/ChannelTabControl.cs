@@ -29,10 +29,29 @@ namespace osu.Game.Overlays.Chat.Tabs
 
             TabContainer.Spacing = new Vector2(-SHEAR_WIDTH, 0);
             TabContainer.Masking = false;
+            TabContainer.TabVisibilityChanged += updateTabs;
 
             AddTabItem(selectorTab = new ChannelSelectorTabItem());
 
             ChannelSelectorActive.BindTo(selectorTab.Active);
+        }
+
+        private void updateTabs(TabItem<Channel> tab, bool visible)
+        {
+            if (SelectedTab != tab) { return; }
+            if (tab == selectorTab) { return; }
+            if (visible) { return; }
+
+            float newWidth = tab.Width - 10;
+            if (newWidth > ChannelTabItem.MIN_TAB_SIZE)
+            {
+                tab.ResizeWidthTo(newWidth);
+            }
+            else
+            {
+                tab.ResizeWidthTo(ChatOverlay.TAB_AREA_HEIGHT + 15);
+                ((ChannelTabItem)tab).HideCloseButton();
+            }
         }
 
         protected override void AddTabItem(TabItem<Channel> item, bool addToDropdown = true)

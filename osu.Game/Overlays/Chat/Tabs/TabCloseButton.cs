@@ -14,9 +14,11 @@ namespace osu.Game.Overlays.Chat.Tabs
     {
         private readonly SpriteIcon icon;
 
+        public const float BUTTON_SIZE = 20;
+
         public TabCloseButton()
         {
-            Size = new Vector2(20);
+            Size = new Vector2(BUTTON_SIZE);
 
             Child = icon = new SpriteIcon
             {
