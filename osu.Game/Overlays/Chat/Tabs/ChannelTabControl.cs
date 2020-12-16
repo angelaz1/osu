@@ -29,10 +29,27 @@ namespace osu.Game.Overlays.Chat.Tabs
 
             TabContainer.Spacing = new Vector2(-SHEAR_WIDTH, 0);
             TabContainer.Masking = false;
+            TabContainer.TabVisibilityChanged += updateTabs;
 
             AddTabItem(selectorTab = new ChannelSelectorTabItem());
 
             ChannelSelectorActive.BindTo(selectorTab.Active);
+        }
+
+        private void updateTabs(TabItem<Channel> tab, bool visible)
+        {
+            if (visible || SelectedTab != tab)
+                return;
+
+            if (!(tab is PrivateChannelTabItem))
+                return;
+
+            float newWidth = tab.Width - 10;
+
+            if (newWidth > ChannelTabItem.MIN_TAB_SIZE)
+                tab.ResizeWidthTo(newWidth);
+            else
+                ((PrivateChannelTabItem)tab).TransitionToInactive();
         }
 
         protected override void AddTabItem(TabItem<Channel> item, bool addToDropdown = true)
@@ -82,6 +99,9 @@ namespace osu.Game.Overlays.Chat.Tabs
 
             if (SelectedTab == null)
                 SelectTab(selectorTab);
+
+            if (SelectedTab is PrivateChannelTabItem pMSelectedTab)
+                pMSelectedTab.TransitionToActive();
         }
 
         protected override void SelectTab(TabItem<Channel> tab)
