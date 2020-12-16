@@ -208,39 +208,6 @@ namespace osu.Game.Tests.Visual.Online
             AddAssert("All channels closed", () => !channelManager.JoinedChannels.Any());
         }
 
-        [Test]
-        public void TestPMChannelDisplayBehavior()
-        {
-            // Adding PM channes
-            AddUntilStep("Join until dropdown has channels", () =>
-            {
-                if (visibleChannels.Count() < joinedChannels.Count())
-                    return true;
-
-                channelManager.JoinChannel(new Channel
-                {
-                    Name = $"Channel no. {joinedChannels.Count() + 11}",
-                    Type = ChannelType.PM
-                });
-
-                return false;
-            });
-
-            AddStep("Switch to last tab", () => clickDrawable(chatOverlay.TabMap[visibleChannels.Last()]));
-            AddAssert("Selected still visible", () => currentChannel == visibleChannels.Last());
-
-            // Selector reappearing after all channels closed
-            AddUntilStep("Close all channels", () =>
-            {
-                if (!joinedChannels.Any())
-                    return true;
-
-                chatOverlay.ChannelTabControl.RemoveChannel(joinedChannels.Last());
-                return false;
-            });
-            AddAssert("Selector is visible", () => chatOverlay.SelectionOverlayState == Visibility.Visible);
-        }
-
         private void pressChannelHotkey(int number)
         {
             var channelKey = Key.Number0 + number;
